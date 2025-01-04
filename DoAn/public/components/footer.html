@@ -1,0 +1,178 @@
+<footer class="footer mt-5">
+    <div class="container">
+        <div class="footer-top">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-info">
+                        <img src="/uploads/logo.png" alt="Logo" class="footer-logo">
+                        <p class="mt-3">Website so sánh giá hàng đầu Việt Nam, giúp người dùng tìm kiếm và so sánh giá sản phẩm từ nhiều sàn thương mại điện tử.</p>
+                        <div class="social-links mt-4">
+                            <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+                            <a href="#" class="telegram"><i class="fab fa-telegram"></i></a>
+                            <a href="#" class="zalo">Zalo</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6">
+                    <div class="footer-links">
+                        <h4>Hỗ trợ</h4>
+                        <ul>
+                            <li><a href="/huong-dan">Hướng dẫn sử dụng</a></li>
+                            <li><a href="/lien-he">Liên hệ</a></li>
+                            <li><a href="/faq">Câu hỏi thường gặp</a></li>
+                            <li><a href="/bao-mat">Chính sách bảo mật</a></li>
+                            <li><a href="/dieu-khoan">Điều khoản sử dụng</a></li>
+                            <li>
+                                <a href="/business-contact.html">
+                                    <i class="fas fa-handshake me-2"></i>Hợp tác kinh doanh
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-links">
+                        <h4>Cộng đồng</h4>
+                        <ul>
+                            <li>
+                                <a href="https://www.facebook.com/gantagshopee/" target="_blank">
+                                    <i class="fab fa-facebook me-2"></i>Nhóm Facebook
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://zalo.me/g/cifzhi967" target="_blank">
+                                    <i class="fas fa-comments me-2"></i>Nhóm Zalo
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://t.me/NhaNgheoSanSale" target="_blank">
+                                    <i class="fab fa-telegram me-2"></i>Kênh Telegram
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-newsletter">
+                        <h4>Đăng ký nhận tin</h4>
+                        <p>Nhận thông báo về các deal hot và khuyến mãi mới nhất</p>
+                        <form id="newsletterForm" class="mt-3">
+                            <div class="input-group">
+                                <input type="email" id="newsletterEmail" class="form-control" placeholder="Email của bạn" required>
+                                <button type="button" id="newsletterSubmit" class="btn btn-primary">Đăng ký</button>
+                            </div>
+                            <div id="newsletterMessage" class="mt-2" style="display: none;"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="copyright">© 2024 CheckPrice. Tất cả quyền được bảo lưu.</p>
+                </div>
+                <div class="col-md-6">
+                    <p class="disclaimer text-md-end">Website chỉ cung cấp thông tin so sánh giá, không trực tiếp bán hàng.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+// Kiểm tra trạng thái đăng nhập
+function checkLoginStatus() {
+    const token = localStorage.getItem('token');
+    const username = localStorage.getItem('username');
+    const userLoggedIn = document.getElementById('userLoggedIn');
+    const userNotLoggedIn = document.getElementById('userNotLoggedIn');
+    const welcomeUsername = document.getElementById('welcomeUsername');
+
+    if (token && username) {
+        userLoggedIn.style.display = 'block';
+        userNotLoggedIn.style.display = 'none';
+        welcomeUsername.textContent = `Xin chào ${username}`;
+    } else {
+        userLoggedIn.style.display = 'none';
+        userNotLoggedIn.style.display = 'block';
+    }
+}
+
+// Xử lý đăng xuất
+document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    checkLoginStatus();
+    window.location.reload();
+});
+
+// Kiểm tra trạng thái đăng nhập khi trang được tải
+document.addEventListener('DOMContentLoaded', checkLoginStatus);
+
+// Thêm vào đầu script
+const form = document.getElementById('newsletterForm');
+const emailInput = document.getElementById('newsletterEmail');
+const submitButton = document.getElementById('newsletterSubmit');
+
+console.log('Form elements:', {
+    form: !!form,
+    input: !!emailInput,
+    button: !!submitButton
+});
+
+form.addEventListener('submit', (e) => {
+    console.log('Form submitted');
+    e.preventDefault();
+});
+
+emailInput.addEventListener('input', (e) => {
+    console.log('Email input:', e.target.value);
+});
+
+submitButton.addEventListener('mousedown', () => {
+    console.log('Button mousedown');
+});
+
+submitButton.addEventListener('click', async () => {
+    console.log('Button clicked');
+    
+    if (!emailInput.value || !emailInput.checkValidity()) {
+        alert('Vui lòng nhập email hợp lệ');
+        return;
+    }
+
+    const email = emailInput.value;
+    console.log('Submitting email:', email);
+
+    try {
+        const response = await fetch('/api/newsletter/subscribe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email })
+        });
+
+        console.log('Response received:', response.status);
+        const data = await response.json();
+        console.log('Response data:', data);
+
+        if (response.ok) {
+            alert(data.message);
+            emailInput.value = '';
+        } else {
+            alert(data.message || 'Có lỗi xảy ra, vui lòng thử lại.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Đã có lỗi xảy ra, vui lòng thử lại sau.');
+    }
+});
+</script> 

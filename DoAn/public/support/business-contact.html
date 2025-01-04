@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên hệ doanh nghiệp | CheckPrice</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <link href="/css/style.css" rel="stylesheet">
+    <script src="/js/auth.js" defer></script>
+    <style>
+        .business-form {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0;
+            box-shadow: 0 0 40px rgba(0,0,0,0.08);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .contact-header {
+            background: linear-gradient(135deg, #207bc1 0%, #1a69a7 100%);
+            padding: 2.5rem;
+            color: white;
+            position: relative;
+        }
+
+        .contact-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.1));
+        }
+
+        .contact-header h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-content {
+            padding: 2.5rem;
+            background: #fff;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #444;
+            margin-bottom: 0.5rem;
+        }
+
+        .required::after {
+            content: "*";
+            color: #dc3545;
+            margin-left: 4px;
+        }
+
+        .form-control {
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border: 2px solid #e9ecef;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #207bc1;
+            box-shadow: 0 0 0 0.25rem rgba(32,123,193,0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #207bc1 0%, #1a69a7 100%);
+            border: none;
+            padding: 1rem 2.5rem;
+            font-weight: 500;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(32,123,193,0.15);
+        }
+
+        .alert {
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            border: none;
+            margin-top: 1.5rem;
+        }
+
+        .text-muted {
+            color: #6c757d !important;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Header -->
+    <div id="header-container"></div>
+
+    <main class="container mt-4">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                <div class="support-sidebar card">
+                    <div class="card-body">
+                        <h4 class="card-title">Trung tâm hỗ trợ</h4>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/huong-dan">
+                                    <i class="fas fa-book-open me-2"></i>Hướng dẫn sử dụng
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/lien-he">
+                                    <i class="fas fa-envelope me-2"></i>Liên hệ
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-item">
+                                    <a class="nav-link" href="/faq">
+                                        <i class="fas fa-question-circle me-2"></i>Câu hỏi thường gặp
+                                    </a>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/bao-mat">
+                                    <i class="fas fa-shield-alt me-2"></i>Chính sách bảo mật
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/dieu-khoan">
+                                    <i class="fas fa-file-contract me-2"></i>Điều khoản sử dụng
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/lien-he-doi-tac">
+                                    <i class="fas fa-briefcase me-2"></i>Liên hệ doanh nghiệp
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-9">
+                <div class="business-form">
+                    <div class="contact-header">
+                        <h2>Đăng ký hợp tác kinh doanh</h2>
+                        <p>Hãy để lại thông tin của bạn, chúng tôi sẽ liên hệ trong thời gian sớm nhất</p>
+                    </div>
+                    
+                    <div class="form-content">
+                        <form id="businessContactForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label required">Tên doanh nghiệp</label>
+                                    <input type="text" class="form-control" name="businessName" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label required">Mã số thuế</label>
+                                    <input type="text" class="form-control" name="taxCode" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label required">Người liên hệ</label>
+                                    <input type="text" class="form-control" name="contactPerson" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label required">Số điện thoại</label>
+                                    <input type="tel" class="form-control" name="phone" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label required">Email</label>
+                                <input type="email" class="form-control" name="email" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Website/Fanpage</label>
+                                <input type="url" class="form-control" name="website">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Danh sách sản phẩm</label>
+                                <input type="file" 
+                                       class="form-control" 
+                                       name="productList" 
+                                       accept=".xlsx,.xls"
+                                       title="Chỉ chấp nhận file Excel (.xlsx, .xls)">
+                                <small class="text-muted">Tải lên file Excel chứa danh sách sản phẩm (nếu có)</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Nội dung đề xuất hợp tác</label>
+                                <textarea class="form-control" name="message" rows="4"></textarea>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-paper-plane me-2"></i>Gửi thông tin
+                                </button>
+                            </div>
+                        </form>
+
+                        <div id="message" class="alert d-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Include Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('businessContactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalBtnContent = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Đang gửi...';
+            
+            const formData = new FormData(e.target);
+            
+            try {
+                const response = await fetch('/api/business-contact', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage('Cảm ơn bạn đã gửi thông tin! Chúng tôi sẽ liên hệ lại trong thời gian sớm nhất.', 'success');
+                    e.target.reset();
+                } else {
+                    showMessage(result.message || 'Có lỗi xảy ra, vui lòng thử lại sau.', 'danger');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage('Có lỗi xảy ra, vui lòng thử lại sau.', 'danger');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnContent;
+            }
+        });
+
+        function showMessage(text, type = 'success') {
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i>
+                ${text}
+            `;
+            messageDiv.className = `alert alert-${type} d-block`;
+            setTimeout(() => {
+                messageDiv.className = 'alert d-none';
+            }, 5000);
+        }
+    </script>
+        <script src="js/chatbot.js"></script>
+
+</body>
+</html> 

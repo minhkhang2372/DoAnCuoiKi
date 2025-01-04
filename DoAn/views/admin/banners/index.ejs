@@ -1,0 +1,105 @@
+<%- include('../partials/header') %>
+
+<div class="container-fluid">
+    <div class="row">
+        <%- include('../partials/sidebar') %>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Quản lý Banner</h1>
+                <a href="/admin/banners/new" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Thêm Banner
+                </a>
+            </div>
+
+            <% if (locals.error) { %>
+                <div class="alert alert-danger">
+                    <%= error %>
+                </div>
+            <% } %>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Hình ảnh</th>
+                            <th>Tiêu đề</th>
+                            <th>Vị trí</th>
+                            <th>Thứ tự</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% banners.forEach(banner => { %>
+                            <tr>
+                                <td>
+                                    <img src="<%= banner.image_url %>" 
+                                         alt="<%= banner.title %>"
+                                         style="height: 50px; object-fit: cover;">
+                                </td>
+                                <td><%= banner.title %></td>
+                                <td>
+                                    <span class="badge <%= banner.position === 'main' ? 'bg-primary' : 'bg-secondary' %>">
+                                        <%= banner.position === 'main' ? 'Banner chính' : 'Banner phụ' %>
+                                    </span>
+                                </td>
+                                <td><%= banner.priority %></td>
+                                <td>
+                                    <span class="badge <%= banner.status ? 'bg-success' : 'bg-danger' %>">
+                                        <%= banner.status ? 'Hiện' : 'Ẩn' %>
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="/admin/banners/<%= banner.id %>/edit" 
+                                           class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button type="button" 
+                                                class="btn btn-sm btn-outline-danger"
+                                                onclick="deleteBanner('<%= banner.id %>')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% }) %>
+                        <% if (banners.length === 0) { %>
+                            <tr>
+                                <td colspan="6" class="text-center">Chưa có banner nào</td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+function deleteBanner(id) {
+    if (confirm('Bạn có chắc chắn muốn xóa banner này?')) {
+        fetch(`/admin/banners/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.reload();
+            } else {
+                alert('Có lỗi xảy ra khi xóa banner');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Có lỗi xảy ra khi xóa banner');
+        });
+    }
+}
+</script>
+
+<%- include('../partials/footer') %> 

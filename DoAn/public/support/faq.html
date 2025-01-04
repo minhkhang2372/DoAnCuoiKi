@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Câu hỏi thường gặp | CheckPrice</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <link href="/css/style.css" rel="stylesheet">
+    <script src="/js/auth.js" defer></script>
+    <style>
+        .faq-card {
+            border: none;
+            box-shadow: 0 0 40px rgba(0,0,0,0.08);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .faq-header {
+            background: linear-gradient(135deg, #207bc1 0%, #1a69a7 100%);
+            padding: 2.5rem;
+            color: white;
+            position: relative;
+        }
+
+        .faq-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.1));
+        }
+
+        .faq-header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .faq-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .faq-content {
+            padding: 2.5rem;
+        }
+
+        .faq-category {
+            margin-bottom: 3rem;
+        }
+
+        .faq-category h2 {
+            color: #207bc1;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .faq-category h2 i {
+            width: 40px;
+            height: 40px;
+            background: #207bc1;
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .accordion-item {
+            border: none;
+            background: #fff;
+            margin-bottom: 1rem;
+            border-radius: 12px !important;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .accordion-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .accordion-button {
+            padding: 1.25rem;
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: #2d3436;
+            background: #fff;
+            border-radius: 12px !important;
+        }
+
+        .accordion-button:not(.collapsed) {
+            color: #207bc1;
+            background: #fff;
+            box-shadow: none;
+        }
+
+        .accordion-button:focus {
+            box-shadow: none;
+            border-color: rgba(32,123,193,0.1);
+        }
+
+        .accordion-button::after {
+            background-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-body {
+            padding: 1.25rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .contact-support {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 16px;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .contact-support h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2d3436;
+        }
+
+        .contact-support .btn {
+            padding: 1rem 2rem;
+            font-weight: 500;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-support .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .faq-header {
+                padding: 2rem;
+            }
+
+            .faq-content {
+                padding: 1.5rem;
+            }
+
+            .accordion-button {
+                font-size: 1rem;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Header -->
+    <div id="header-container"></div>
+    <main class="container mt-4">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="support-sidebar card">
+                    <div class="card-body">
+                        <h4 class="card-title">Trung tâm hỗ trợ</h4>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/huong-dan">
+                                    <i class="fas fa-book-open me-2"></i>Hướng dẫn sử dụng
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/lien-he">
+                                    <i class="fas fa-envelope me-2"></i>Liên hệ
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-item">
+                                    <a class="nav-link" href="/faq">
+                                        <i class="fas fa-question-circle me-2"></i>Câu hỏi thường gặp
+                                    </a>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/bao-mat">
+                                    <i class="fas fa-shield-alt me-2"></i>Chính sách bảo mật
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/dieu-khoan">
+                                    <i class="fas fa-file-contract me-2"></i>Điều khoản sử dụng
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/lien-he-doi-tac">
+                                    <i class="fas fa-briefcase me-2"></i>Liên hệ doanh nghiệp
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title mb-4">Câu hỏi thường gặp (FAQ)</h1>
+
+                        <div class="faq-category">
+                            <h2>
+                                <i class="fas fa-search"></i>
+                                Tìm kiếm và so sánh
+                            </h2>
+                            <div class="accordion" id="searchFaq">
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#search1">
+                                            CheckPrice hoạt động như thế nào?
+                                        </button>
+                                    </h3>
+                                    <div id="search1" class="accordion-collapse collapse show" data-bs-parent="#searchFaq">
+                                        <div class="accordion-body">
+                                            CheckPrice là công cụ so sánh giá trực tuyến, giúp người dùng tìm kiếm và so sánh giá sản phẩm từ nhiều sàn thương mại điện tử khác nhau như Shopee, Lazada, Tiki... Chúng tôi cập nhật giá liên tục để đảm bảo thông tin chính xác nhất cho người dùng.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#search2">
+                                            Làm sao để tìm sản phẩm tốt nhất?
+                                        </button>
+                                    </h3>
+                                    <div id="search2" class="accordion-collapse collapse" data-bs-parent="#searchFaq">
+                                        <div class="accordion-body">
+                                            Để tìm sản phẩm tốt nhất, bạn nên:
+                                            <ul>
+                                                <li>So sánh giá từ nhiều người bán khác nhau</li>
+                                                <li>Kiểm tra đánh giá và phản hồi từ người mua trước</li>
+                                                <li>Xem lịch sử giá để biết được xu hướng giá</li>
+                                                <li>Lưu ý đến uy tín của người bán</li>
+                                                <li>Kiểm tra chi tiết sản phẩm và chính sách bảo hành</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#search3">
+                                            Giá hiển thị có chính xác không?
+                                        </button>
+                                    </h3>
+                                    <div id="search3" class="accordion-collapse collapse" data-bs-parent="#searchFaq">
+                                        <div class="accordion-body">
+                                            CheckPrice cập nhật giá thường xuyên từ các sàn TMĐT. Tuy nhiên, giá có thể thay đổi nhanh chóng do chính sách của người bán. Chúng tôi khuyến nghị bạn nên:
+                                            <ul>
+                                                <li>Kiểm tra lại giá trực tiếp trên link sản phẩm</li>
+                                                <li>Lưu ý thời gian cập nhật giá gần nhất</li>
+                                                <li>Theo dõi biến động giá qua thời gian</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-category">
+                            <h2>
+                                <i class="fas fa-user"></i>
+                                Tài khoản và bảo mật
+                            </h2>
+                            <div class="accordion" id="accountFaq">
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#account1">
+                                            Tại sao nên đăng ký tài khoản?
+                                        </button>
+                                    </h3>
+                                    <div id="account1" class="accordion-collapse collapse" data-bs-parent="#accountFaq">
+                                        <div class="accordion-body">
+                                            Đăng ký tài khoản mang lại nhiều lợi ích:
+                                            <ul>
+                                                <li>Lưu danh sách sản phẩm yêu thích</li>
+                                                <li>Theo dõi lịch sử giá</li>
+                                                <li>Nhận thông báo khi giá giảm</li>
+                                                <li>Tạo danh sách theo dõi riêng</li>
+                                                <li>Tùy chỉnh giao diện theo sở thích</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#account2">
+                                            CheckPrice có thu thập dữ liệu cá nhân không?
+                                        </button>
+                                    </h3>
+                                    <div id="account2" class="accordion-collapse collapse" data-bs-parent="#accountFaq">
+                                        <div class="accordion-body">
+                                            CheckPrice chỉ thu thập những thông tin cần thiết để cung cấp dịch vụ:
+                                            <ul>
+                                                <li>Email để đăng nhập và liên hệ</li>
+                                                <li>Lịch sử tìm kiếm để cải thiện gợi ý</li>
+                                                <li>Danh sách theo dõi của bạn</li>
+                                            </ul>
+                                            Chúng tôi cam kết bảo vệ dữ liệu người dùng theo chính sách bảo mật.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-category">
+                            <h2>
+                                <i class="fas fa-shopping-cart"></i>
+                                Mua sắm và thanh toán
+                            </h2>
+                            <div class="accordion" id="shoppingFaq">
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#shopping1">
+                                            CheckPrice có bán hàng không?
+                                        </button>
+                                    </h3>
+                                    <div id="shopping1" class="accordion-collapse collapse" data-bs-parent="#shoppingFaq">
+                                        <div class="accordion-body">
+                                            CheckPrice không trực tiếp bán hàng. Chúng tôi chỉ cung cấp công cụ so sánh giá và đánh giá sản phẩm từ các sàn thương mại điện tử. Khi bạn chọn mua sản phẩm, bạn sẽ được chuyển đến trang bán hàng tương ứng.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#shopping2">
+                                            Làm sao để mua hàng an toàn?
+                                        </button>
+                                    </h3>
+                                    <div id="shopping2" class="accordion-collapse collapse" data-bs-parent="#shoppingFaq">
+                                        <div class="accordion-body">
+                                            Để mua hàng an toàn, bạn nên:
+                                            <ul>
+                                                <li>Kiểm tra kỹ thông tin người bán</li>
+                                                <li>Đọc đánh giá từ người mua trước</li>
+                                                <li>Sử dụng phương thức thanh toán an toàn</li>
+                                                <li>Lưu giữ hóa đơn và thông tin đơn hàng</li>
+                                                <li>Quay video khi mở hàng (nếu cần)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact section -->
+                        <div class="mt-4 text-center">
+                            <p>Không tìm thấy câu trả lời bạn cần?</p>
+                            <a href="/support/contact.html" class="btn btn-primary">
+                                <i class="fas fa-envelope me-2"></i>Liên hệ với chúng tôi
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Include Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="js/chatbot.js"></script>
+
+
+</body>
+</html> 

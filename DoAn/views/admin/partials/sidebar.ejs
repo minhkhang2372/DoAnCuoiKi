@@ -1,0 +1,41 @@
+<nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+    <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link text-white <%= path === '/admin/dashboard' ? 'active' : '' %>" 
+                   href="/admin/dashboard">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white <%= path === '/admin/products' ? 'active' : '' %>" 
+                   href="/admin/products">
+                    <i class="fas fa-box"></i> Products
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white <%= path === '/admin/partners' ? 'active' : '' %>" 
+                   href="/admin/partners">
+                    <i class="fas fa-handshake"></i> Partners
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white <%= path === '/admin/banners' ? 'active' : '' %>" 
+                   href="/admin/banners">
+                    <i class="fas fa-images"></i> Banners
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white <%= path === '/admin/blogs' ? 'active' : '' %>" 
+                   href="/admin/blogs">
+                    <i class="fas fa-newspaper"></i> Blog
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/admin/logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav> 

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chính sách bảo mật | CheckPrice</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <link href="/css/style.css" rel="stylesheet">
+    <script src="/js/auth.js" defer></script>
+    <style>
+        .privacy-card {
+            border: none;
+            box-shadow: 0 0 40px rgba(0,0,0,0.08);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .privacy-header {
+            background: linear-gradient(135deg, #207bc1 0%, #1a69a7 100%);
+            padding: 2.5rem;
+            color: white;
+            position: relative;
+        }
+
+        .privacy-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.1));
+        }
+
+        .privacy-header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .privacy-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .privacy-content {
+            padding: 2.5rem;
+        }
+
+        .privacy-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .privacy-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .privacy-section h2 {
+            color: #207bc1;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .privacy-section h2 i {
+            width: 40px;
+            height: 40px;
+            background: #207bc1;
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .privacy-section ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .privacy-section li {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .privacy-section li::before {
+            content: '';
+            position: absolute;
+            left: -1rem;
+            top: 0.7rem;
+            width: 6px;
+            height: 6px;
+            background: #207bc1;
+            border-radius: 50%;
+        }
+
+        .contact-info {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 16px;
+            margin-top: 3rem;
+        }
+
+        .contact-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #2d3436;
+        }
+
+        .contact-info ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .contact-info li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-info i {
+            width: 35px;
+            height: 35px;
+            background: #207bc1;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .privacy-header {
+                padding: 2rem;
+            }
+
+            .privacy-content {
+                padding: 1.5rem;
+            }
+
+            .privacy-section {
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .privacy-section h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Header -->
+    <div id="header-container"></div>
+
+    <main class="container mt-4">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                <div class="support-sidebar card">
+                    <div class="card-body">
+                        <h4 class="card-title">Trung tâm hỗ trợ</h4>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/huong-dan">
+                                    <i class="fas fa-book-open me-2"></i>Hướng dẫn sử dụng
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/lien-he">
+                                    <i class="fas fa-envelope me-2"></i>Liên hệ
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-item">
+                                    <a class="nav-link" href="/faq">
+                                        <i class="fas fa-question-circle me-2"></i>Câu hỏi thường gặp
+                                    </a>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/bao-mat">
+                                    <i class="fas fa-shield-alt me-2"></i>Chính sách bảo mật
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/dieu-khoan">
+                                    <i class="fas fa-file-contract me-2"></i>Điều khoản sử dụng
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/lien-he-doi-tac">
+                                    <i class="fas fa-briefcase me-2"></i>Liên hệ doanh nghiệp
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-9">
+                <div class="privacy-card">
+                    <div class="privacy-header">
+                        <h1>Chính sách bảo mật</h1>
+                        <p>CheckPrice cam kết bảo vệ thông tin cá nhân của người dùng và đảm bảo tính minh bạch trong việc thu thập, xử lý dữ liệu.</p>
+                    </div>
+                    
+                    <div class="privacy-content">
+                        <div class="privacy-section">
+                            <h2>
+                                <i class="fas fa-user-shield"></i>
+                                Thông tin thu thập
+                            </h2>
+                            <p>Chúng tôi thu thập các thông tin sau:</p>
+                            <ul>
+                                <li>Thông tin cá nhân (tên, email, số điện thoại)</li>
+                                <li>Thông tin đăng nhập và mật khẩu</li>
+                                <li>Lịch sử tìm kiếm và so sánh giá</li>
+                                <li>Thông tin thiết bị và trình duyệt</li>
+                            </ul>
+                        </div>
+
+                        <div class="privacy-section">
+                            <h2>
+                                <i class="fas fa-lock"></i>
+                                Bảo mật thông tin
+                            </h2>
+                            <p>Chúng tôi cam kết:</p>
+                            <ul>
+                                <li>Mã hóa dữ liệu người dùng</li>
+                                <li>Không chia sẻ thông tin với bên thứ ba</li>
+                                <li>Chỉ sử dụng thông tin cho mục đích đã nêu</li>
+                                <li>Cho phép người dùng kiểm soát dữ liệu của họ</li>
+                            </ul>
+                        </div>
+
+                        <div class="privacy-section">
+                            <h2>
+                                <i class="fas fa-cookie"></i>
+                                Cookie và theo dõi
+                            </h2>
+                            <p>CheckPrice sử dụng cookie để:</p>
+                            <ul>
+                                <li>Ghi nhớ tùy chọn người dùng</li>
+                                <li>Phân tích lưu lượng truy cập</li>
+                                <li>Cải thiện trải nghiệm người dùng</li>
+                                <li>Hiển thị nội dung phù hợp</li>
+                            </ul>
+                        </div>
+
+                        <div class="contact-info">
+                            <h2>Liên hệ về vấn đề bảo mật</h2>
+                            <ul>
+                                <li>
+                                    <i class="fas fa-envelope"></i>
+                                    <span>Email: privacy@checkprice.vn</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-phone"></i>
+                                    <span>Điện thoại: 1900 123 456</span>
+                                </li>
+                            </ul>
+                            <p class="text-muted mt-3">Cập nhật lần cuối: 01/03/2024</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Include Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="js/chatbot.js"></script>
+
+</body>
+</html> 

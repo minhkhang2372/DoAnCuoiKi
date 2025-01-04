@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>So sánh giá | Tìm kiếm giá tốt nhất</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Swiper CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" rel="stylesheet">
+    
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Include Header -->
+    <div id="header-container"></div>
+
+
+    <main class="container mt-4">
+        <!-- Thêm phần search results -->
+        <section id="searchResults" class="search-results" style="display: none;">
+            <div class="search-controls mb-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="filter-controls">
+                            <h5>Lọc kết quả:</h5>
+                            <div class="platform-filter mb-2">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input platform-checkbox" type="checkbox" 
+                                           id="temuFilter" value="temu" checked>
+                                    <label class="form-check-label" for="temuFilter">Temu</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input platform-checkbox" type="checkbox" 
+                                           id="shopeeFilter" value="shopee" checked>
+                                    <label class="form-check-label" for="shopeeFilter">Shopee</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input platform-checkbox" type="checkbox" 
+                                           id="tikiFilter" value="tiki" checked>
+                                    <label class="form-check-label" for="tikiFilter">Tiki</label>
+                                </div>
+                            </div>
+                            <div class="price-filter d-flex gap-2 align-items-center">
+                                <input type="number" 
+                                       id="minPrice" 
+                                       class="form-control" 
+                                       placeholder="Giá từ">
+                                <span>-</span>
+                                <input type="number" 
+                                       id="maxPrice" 
+                                       class="form-control" 
+                                       placeholder="Giá đến">
+                                <button id="filterButton" class="btn btn-primary">
+                                    Lọc
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="sort-controls text-end">
+                            <select id="sortSelect" class="form-select">
+                                <option value="">Sắp xếp theo</option>
+                                <option value="price_asc">Giá tăng dần</option>
+                                <option value="price_desc">Giá giảm dần</option>
+                                <option value="sales">Bán chạy nhất</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading spinner -->
+            <div id="loadingSpinner" class="text-center" style="display: none;">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Đang tải...</span>
+                </div>
+            </div>
+
+            <!-- Error message -->
+            <div id="errorMessage" class="alert alert-danger" style="display: none;">
+            </div>
+
+            <!-- Products grid -->
+            <div id="productsGrid" class="row row-cols-2 row-cols-md-4 g-4">
+            </div>
+        </section>
+
+        <!-- Giữ nguyên các section khác nhưng ẩn đi khi hiển thị kết quả tìm kiếm -->
+        <div id="homeContent">
+            <!-- Banner Slider -->
+            <section class="home-menu-banner">
+                <div class="swiper bannerSwiper">
+                    <div class="swiper-wrapper">
+                        <!-- Banners will be loaded by JS -->
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+                
+                <div class="banner-side">
+                    <!-- Side banners will be loaded by JS -->
+                </div>
+            </section>
+
+            <!-- Thêm vào đây -->
+            <!-- Trending & Popular Searches -->
+            <section class="search-trends mt-4">
+                <div class="popular-searches">
+                    <h3 class="section-title d-flex align-items-center">
+                        <i class="fas fa-search me-2"></i>
+                        <span>Tìm kiếm phổ biến</span>
+                    </h3>
+                    <div class="popular-tags" id="popularTags">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Flash Sale -->
+            <section class="featured-categories mt-4">
+                <div class="flash-sale-header">
+                    <div class="flash-sale-title">
+                        <i class="fas fa-bolt"></i>
+                        Flash Sale
+                    </div>
+                    <div class="countdown-wrap">
+                        <div class="countdown-label">Kết thúc trong:</div>
+                        <div class="countdown-timer">
+                            <div class="countdown-box">
+                                <div class="countdown-number" id="countdown-hours">00</div>
+                                <div class="countdown-text">Giờ</div>
+                            </div>
+                            <div class="countdown-box">
+                                <div class="countdown-number" id="countdown-minutes">00</div>
+                                <div class="countdown-text">Phút</div>
+                            </div>
+                            <div class="countdown-box">
+                                <div class="countdown-number" id="countdown-seconds">00</div>
+                                <div class="countdown-text">Giây</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Giữ nguyên cấu trúc grid sản phẩm -->
+                <div class="flash-sale-products">
+                    <div id="productsGrid" class="row row-cols-2 row-cols-md-4 g-4">
+                        <!-- Products sẽ được load bởi JS như cũ -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Latest News -->
+            <section class="latest-news mt-4">
+                <div class="section-header d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="section-title mb-0">
+                        <i class="fas fa-newspaper me-2"></i>
+                        Tin tức mới nhất
+                    </h2>
+                    <a href="/blogs" class="btn btn-link text-primary">
+                        Xem tất cả <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+                
+                <div class="swiper blogSwiper">
+                    <div class="swiper-wrapper" id="blogGrid">
+                        <!-- Template cho mỗi blog post -->
+                        <template id="blogTemplate">
+                            <div class="swiper-slide">
+                                <div class="card h-100 blog-card">
+                                    <div class="blog-image-wrapper">
+                                        <img src="" class="card-img-top blog-image" alt="">
+                                        <div class="blog-overlay">
+                                            <div class="blog-category">
+                                                <span class="badge bg-primary"></span>
+                                            </div>
+                                            <div class="blog-meta">
+                                                <span class="blog-date">
+                                                    <i class="far fa-calendar-alt me-1"></i>
+                                                    <span class="date-text"></span>
+                                                </span>
+                                                <span class="blog-author">
+                                                    <i class="far fa-user me-1"></i>
+                                                    <span class="author-text"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title blog-title"></h5>
+                                        <p class="card-text blog-excerpt"></p>
+                                        <a href="#" class="stretched-link"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </section>
+
+            <!-- New Partners Section -->
+            <section class="partners-section my-5">
+                <div class="section-header text-center mb-4">
+                    <h2 class="section-title">Đối tác của chúng tôi</h2>
+                    <p class="text-muted">Kết nối với các sàn thương mại điện tử hàng đầu</p>
+                </div>
+                <div class="partners-grid">
+                    <div class="partner-item">
+                        <img src="/uploads/partner/shopee.png" alt="Shopee">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/uploads/partner/tiki.png" alt="Temu">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/uploads/partner/temu.png" alt="Tiki">
+                    </div>
+                    <div class="partner-item">
+                        <img src="/uploads/partner/shopee.png" alt="Lazada">
+                    </div>
+                    <!-- Add more partners as needed -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Include Footer -->
+    <div id="footer-container"></div>
+    
+
+    <!-- Thêm template cho sản phẩm -->
+    <template id="productTemplate">
+        <div class="col">
+            <div class="card h-100">
+                <div class="platform-badge">
+                    <span class="badge bg-primary">
+                        <!-- Platform icon and name will be set by JS -->
+                    </span>
+                </div>
+                <img src="" class="card-img-top product-image" alt="">
+                <div class="card-body">
+                    <h5 class="card-title product-title"></h5>
+                    <div class="price-info">
+                        <span class="current-price"></span>
+                        <span class="original-price text-decoration-line-through text-muted"></span>
+                        <span class="discount-badge badge bg-danger"></span>
+                    </div>
+                    <p class="card-text sales-info"></p>
+                    <a href="#" class="btn btn-primary w-100 buy-now-btn">
+                        <i class="fas fa-shopping-cart me-2"></i>Mua ngay
+                    </a>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/blog.js"></script>
+    <script src="/js/auth.js" defer></script>
+    <script src="js/chatbot.js"></script>
+</body>
+</html>

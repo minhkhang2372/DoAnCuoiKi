@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng dẫn sử dụng | CheckPrice</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <link href="/css/style.css" rel="stylesheet">
+    <script src="/js/auth.js" defer></script>
+    <style>
+        .guide-card {
+            border: none;
+            box-shadow: 0 0 40px rgba(0,0,0,0.08);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .guide-header {
+            background: linear-gradient(135deg, #207bc1 0%, #1a69a7 100%);
+            padding: 2.5rem;
+            color: white;
+            position: relative;
+        }
+
+        .guide-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.1));
+        }
+
+        .guide-header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .guide-content {
+            padding: 2.5rem;
+        }
+
+        .guide-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .guide-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .guide-section h2 {
+            color: #207bc1;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .guide-section h2 i {
+            width: 40px;
+            height: 40px;
+            background: #207bc1;
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .guide-section ul {
+            padding-left: 1.5rem;
+            margin-bottom: 0;
+        }
+
+        .guide-section li {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .guide-section li::before {
+            content: '';
+            position: absolute;
+            left: -1rem;
+            top: 0.7rem;
+            width: 6px;
+            height: 6px;
+            background: #207bc1;
+            border-radius: 50%;
+        }
+
+        @media (max-width: 768px) {
+            .guide-header {
+                padding: 2rem;
+            }
+
+            .guide-content {
+                padding: 1.5rem;
+            }
+
+            .guide-section {
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .guide-section h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Header -->
+    <div id="header-container"></div>
+
+    <main class="container mt-4">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                <div class="support-sidebar card">
+                    <div class="card-body">
+                        <h4 class="card-title">Trung tâm hỗ trợ</h4>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/huong-dan">
+                                    <i class="fas fa-book-open me-2"></i>Hướng dẫn sử dụng
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/lien-he">
+                                    <i class="fas fa-envelope me-2"></i>Liên hệ
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-item">
+                                    <a class="nav-link" href="/faq">
+                                        <i class="fas fa-question-circle me-2"></i>Câu hỏi thường gặp
+                                    </a>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/bao-mat">
+                                    <i class="fas fa-shield-alt me-2"></i>Chính sách bảo mật
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/dieu-khoan">
+                                    <i class="fas fa-file-contract me-2"></i>Điều khoản sử dụng
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/lien-he-doi-tac">
+                                    <i class="fas fa-briefcase me-2"></i>Liên hệ doanh nghiệp
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-9">
+                <div class="guide-card">
+                    <div class="guide-header">
+                        <h1>Hướng dẫn sử dụng</h1>
+                    </div>
+                    
+                    <div class="guide-content">
+                        <div class="guide-section">
+                            <h2>
+                                <i class="fas fa-search"></i>
+                                Tìm kiếm sản phẩm
+                            </h2>
+                            <p>Để tìm kiếm sản phẩm trên CheckPrice, bạn có thể:</p>
+                            <ul>
+                                <li>Nhập tên sản phẩm vào ô tìm kiếm ở đầu trang</li>
+                                <li>Sử dụng bộ lọc để thu hẹp kết quả theo giá, nền tảng</li>
+                                <li>Sắp xếp kết quả theo giá, độ phổ biến</li>
+                            </ul>
+                        </div>
+
+                        <div class="guide-section">
+                            <h2>
+                                <i class="fas fa-balance-scale"></i>
+                                So sánh giá
+                            </h2>
+                            <p>Sau khi tìm kiếm:</p>
+                            <ul>
+                                <li>Xem giá từ nhiều nền tảng khác nhau</li>
+                                <li>So sánh giá gốc và giá khuyến mãi</li>
+                                <li>Kiểm tra thông tin về người bán và đánh giá</li>
+                            </ul>
+                        </div>
+
+                        <div class="guide-section">
+                            <h2>
+                                <i class="fas fa-user-circle"></i>
+                                Tài khoản người dùng
+                            </h2>
+                            <p>Với tài khoản CheckPrice, bạn có thể:</p>
+                            <ul>
+                                <li>Lưu sản phẩm yêu thích</li>
+                                <li>Theo dõi lịch sử giá</li>
+                                <li>Nhận thông báo khi giá giảm</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Include Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="js/chatbot.js"></script>
+
+</body>
+</html> 

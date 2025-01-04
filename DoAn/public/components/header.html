@@ -1,0 +1,68 @@
+<!-- Header -->
+<header class="header-container">
+    <div class="header-wrap container">
+        <h1 class="logo">
+            <a href="/">
+                <img src="/uploads/logo.png" alt="Logo"> 
+            </a>
+        </h1>
+
+        <div class="header-search">
+            <form id="searchForm">
+                <input type="text" 
+                       id="searchInput"
+                       class="header-search-box"
+                       placeholder="Tìm kiếm sản phẩm..."
+                       required>
+                <button class="search-btn" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+
+        <div class="header-action">
+            <div class="header-action-login">
+                <div id="userNotLoggedIn">
+                    <a href="/login" class="btn-login">
+                        <i class="fas fa-user"></i>
+                        <span>Đăng nhập</span>
+                    </a>
+                </div>
+                <div id="userLoggedIn" style="display: none;">
+                    <div class="dropdown">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user"></i>
+                            <span id="welcomeUsername">Xin chào</span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="/profile">Tài khoản của tôi</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logoutBtn">Đăng xuất</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Navigation -->
+<nav class="navigation-container">
+    <div class="navigation-wrap container">
+        <div class="menu-wrap">
+            <div class="menu-title">
+                <i class="fas fa-bars me-2"></i>
+                Danh mục sản phẩm
+            </div>
+            <div class="menu-dropdown">
+                <!-- Categories loaded by JS -->
+            </div>
+        </div>
+        
+        <div class="hot-links">
+            <a href="/deal-hot">Deal HOT</a>
+            <a href="/khuyen-mai">Khuyến mãi</a>
+            <a href="/san-pham-moi">Sản phẩm mới</a>
+        </div>
+    </div>
+</nav> 

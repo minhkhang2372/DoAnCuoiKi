@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Săn Vòng Quay Xu Shopee</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header-container {
+            background: #207bc1;
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .header-wrap {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Style cho nút back */
+        .header-wrap a svg {
+            transition: transform 0.2s ease;
+        }
+
+        .header-wrap a:hover svg {
+            transform: translateX(-3px);
+        }
+
+        /* Điều chỉnh layout cho phần header */
+        .header-wrap .flex {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .banner-container {
+    position: relative;
+    height: 400px; /* Tăng chiều cao để phù hợp với tỷ l ảnh */
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+                url('/uploads/vongquay.jpg') center/contain no-repeat;
+    /* Thay đổi background-size từ 'cover' thành 'contain' để giữ tỷ lệ
+       Thêm 'no-repeat' để tránh lặp lại ảnh */
+    background-color: #ff4d2d; /* Màu nền phù hợp với ảnh */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+        .banner-content {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            border-radius: 1rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .banner-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .banner-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .spinner-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .spinner-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .spinner-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #207bc1, #2196f3);
+        }
+
+        .spinner-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(32,123,193,0.15);
+        }
+
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .time-unit {
+            background: #f8f9fa;
+            padding: 0.75rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .time-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #207bc1;
+        }
+
+        .time-label {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+
+        .coin-amount {
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+            color: #fff;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .join-button {
+            background: #207bc1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 1rem;
+            width: 100%;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+
+        .join-button:hover {
+            background: #1a69a7;
+            transform: translateY(-2px);
+        }
+
+        .slot-badge {
+            background: #e3f2fd;
+            color: #207bc1;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .page-title {
+            text-align: center;
+            margin: 2rem 0;
+            color: #333;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.875rem;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #4caf50;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .banner-container {
+                height: 200px;
+            }
+            
+            .banner-title {
+                font-size: 1.8rem;
+            }
+
+            .banner-subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header-container">
+        <div class="header-wrap">
+            <div class="flex items-center gap-4">
+                <a href="/" class="text-white hover:text-gray-200 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </a>
+                <div class="text-white text-xl font-bold">
+                    Săn Xu Shopee
+                </div>
+            </div>
+            <div class="live-badge">
+                <span class="live-dot"></span>
+                <span>Live Tracking</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="banner-container">
+
+    </div>
+
+    <div class="page-title">
+        Vòng Quay Xu Đang Diễn Ra
+    </div>
+
+    <div class="spinner-grid">
+        <% if (data && data.data && data.data.allSpinner) { %>
+            <% data.data.allSpinner.forEach((spinner, index) => { %>
+                <div class="spinner-card p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">
+                            <%= spinner.shopName %>
+                        </h3>
+                        <span class="coin-amount">
+                            <%= spinner.maxcoin %> xu
+                        </span>
+                    </div>
+
+                    <div class="time-grid" data-start="<%= spinner.startTime %>">
+                        <div class="time-unit">
+                            <div class="time-value hours">00</div>
+                            <div class="time-label">Giờ</div>
+                        </div>
+                        <div class="time-unit">
+                            <div class="time-value minutes">00</div>
+                            <div class="time-label">Phút</div>
+                        </div>
+                        <div class="time-unit">
+                            <div class="time-value seconds">00</div>
+                            <div class="time-label">Giây</div>
+                        </div>
+                        <div class="time-unit">
+                            <div class="time-value milliseconds">00</div>
+                            <div class="time-label">MS</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-center my-4">
+                        <span class="slot-badge">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                            </svg>
+                            Slot <%= spinner.slot %>
+                        </span>
+                    </div>
+
+                    <a href="https://live.shopee.vn/share?from=live&session=<%= spinner.sessionId %>&utm_medium=affiliates&utm_source=an_17393180002"
+                       target="_blank"
+                       class="join-button">
+                        Tham Gia Ngay
+                    </a>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <div class="col-span-full text-center p-8">
+                <div class="spinner-card p-8">
+                    <div class="text-6xl mb-4">🎲</div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Chưa có vòng quay mới</h3>
+                    <p class="text-gray-600">Hãy quay lại sau nhé!</p>
+                </div>
+            </div>
+        <% } %>
+    </div>
+
+    <script>
+        // Hàm format số để luôn hiển thị 2 chữ số
+        function formatNumber(number) {
+            return String(number).padStart(2, '0');
+        }
+    
+        // Hàm tính thời gian còn lại và format kết quả
+        function calculateTimeRemaining(startTime) {
+            const now = new Date().getTime();
+            const distance = startTime - now;
+    
+            if (distance < 0) {
+                return {
+                    hours: '00',
+                    minutes: '00',
+                    seconds: '00',
+                    milliseconds: '00'
+                };
+            }
+    
+            return {
+                hours: formatNumber(Math.floor(distance / (1000 * 60 * 60))),
+                minutes: formatNumber(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))),
+                seconds: formatNumber(Math.floor((distance % (1000 * 60)) / 1000)),
+                milliseconds: formatNumber(Math.floor((distance % 1000) / 10))
+            };
+        }
+    
+        // Hàm cập nhật đồng hồ đếm ngược cho một phần tử
+        function updateCountdown(element) {
+            const startTime = new Date(element.dataset.start).getTime();
+            const timeRemaining = calculateTimeRemaining(startTime);
+    
+            // Cập nhật các phần tử thời gian
+            ['hours', 'minutes', 'seconds', 'milliseconds'].forEach(unit => {
+                const unitElement = element.querySelector(`.${unit}`);
+                if (unitElement) {
+                    unitElement.textContent = timeRemaining[unit];
+                }
+            });
+    
+            // Thêm class để đánh dấu khi gần hết thời gian
+            if (startTime - new Date().getTime() < 300000) { // 5 phút
+                element.closest('.spinner-card').classList.add('urgent');
+            }
+        }
+    
+        // Hàm cập nhật tất cả đồng hồ đếm ngược
+        function updateAllCountdowns() {
+            document.querySelectorAll('.time-grid').forEach(updateCountdown);
+        }
+    
+        // Cập nhật đồng hồ mỗi 10ms để có animation mượt
+        const countdownInterval = setInterval(updateAllCountdowns, 10);
+    
+// Hàm làm mới dữ liệu mà không cần gọi API trực tiếp
+function refreshPage() {
+    // Thêm hiệu ứng fade out nhẹ nhàng
+    document.querySelector('.spinner-grid').style.opacity = '0';
+    
+    // Reload trang sau animation
+    setTimeout(() => {
+        window.location.href = '/vongquayxu';
+    }, 300);
+}
+
+// Làm mới dữ liệu mỗi 30 giây
+const refreshInterval = setInterval(refreshPage, 30000);
+
+// Cleanup khi unload
+window.addEventListener('unload', () => {
+    clearInterval(refreshInterval);
+});
+    
+        // Cleanup khi component unmount
+        window.addEventListener('unload', () => {
+            clearInterval(countdownInterval);
+            clearInterval(refreshInterval);
+        });
+    
+        // Thêm style cho trạng thái urgent
+        const style = document.createElement('style');
+        style.textContent = `
+            .spinner-card.urgent .time-value {
+                color: #ff4444;
+                animation: pulse 1s infinite;
+            }
+            
+            @keyframes pulse {
+                0% { opacity: 1; }
+                50% { opacity: 0.5; }
+                100% { opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết quả tìm kiếm | So sánh giá</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <%- include('components/header') %>
+    <%- include('components/navigation') %>
+
+    <main class="container mt-4">
+        <section class="search-results">
+            <!-- Loading spinner -->
+            <div id="loadingSpinner" class="text-center" style="display: none;">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Đang tải...</span>
+                </div>
+            </div>
+
+            <!-- Error message -->
+            <div id="errorMessage" class="alert alert-danger" style="display: none;">
+            </div>
+
+            <!-- Products grid -->
+            <div id="productsGrid" class="row row-cols-2 row-cols-md-4 g-4">
+            </div>
+        </section>
+    </main>
+
+    <%- include('components/footer') %>
+
+    <!-- Product Template -->
+    <template id="productTemplate">
+        <div class="col">
+            <div class="card h-100">
+                <div class="platform-badge">
+                    <span class="badge bg-primary">
+                        <!-- Platform icon and name will be set by JS -->
+                    </span>
+                </div>
+                <img src="" class="card-img-top product-image" alt="">
+                <div class="card-body">
+                    <h5 class="card-title product-title"></h5>
+                    <div class="price-info">
+                        <span class="current-price"></span>
+                        <span class="original-price text-decoration-line-through text-muted"></span>
+                        <span class="discount-badge badge bg-danger"></span>
+                    </div>
+                    <p class="card-text sales-info"></p>
+                    <a href="#" class="btn btn-primary w-100 buy-now-btn">
+                        <i class="fas fa-shopping-cart me-2"></i>Mua ngay
+                    </a>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/main.js"></script>
+    <script>
+        // Automatically trigger search when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const app = new App();
+            const searchKey = '<%= searchKey %>';
+            if (searchKey) {
+                app.handleSearch(searchKey);
+            }
+        });
+    </script>
+</body>
+</html> 

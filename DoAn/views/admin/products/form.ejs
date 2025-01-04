@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= mode === 'create' ? 'Add Product' : 'Edit Product' %></title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <%- include('../partials/sidebar') %>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2"><%= mode === 'create' ? 'Add Product' : 'Edit Product' %></h1>
+                </div>
+
+                <form action="/admin/products<%= mode === 'edit' ? '/' + product.id + '?_method=PUT' : '' %>" 
+                      method="POST" 
+                      class="needs-validation" 
+                      novalidate>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Partner</label>
+                        <select name="partner_id" class="form-select" required>
+                            <option value="">Select Partner</option>
+                            <% partners.forEach(partner => { %>
+                                <option value="<%= partner.id %>" 
+                                        <%= product.partner_id === partner.id ? 'selected' : '' %>>
+                                    <%= partner.name %>
+                                </option>
+                            <% }) %>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" 
+                               name="name" 
+                               class="form-control" 
+                               value="<%= product.name || '' %>" 
+                               required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea name="description" 
+                                  class="form-control" 
+                                  rows="3"><%= product.description || '' %></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Price</label>
+                            <input type="number" 
+                                   name="price" 
+                                   class="form-control" 
+                                   value="<%= product.price || '' %>" 
+                                   required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Market Price</label>
+                            <input type="number" 
+                                   name="market_price" 
+                                   class="form-control" 
+                                   value="<%= product.market_price || '' %>">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Image URL</label>
+                        <input type="url" 
+                               name="image_url" 
+                               class="form-control" 
+                               value="<%= product.image_url || '' %>">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Product URL</label>
+                        <input type="url" 
+                               name="product_url" 
+                               class="form-control" 
+                               value="<%= product.product_url || '' %>">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Priority</label>
+                        <input type="number" 
+                               name="priority" 
+                               class="form-control" 
+                               value="<%= product.priority || 0 %>">
+                    </div>
+
+                    <% if (mode === 'edit') { %>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" 
+                                       name="status" 
+                                       class="form-check-input" 
+                                       value="1" 
+                                       <%= product.status ? 'checked' : '' %>>
+                                <label class="form-check-label">Active</label>
+                            </div>
+                        </div>
+                    <% } %>
+
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a href="/admin/products" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

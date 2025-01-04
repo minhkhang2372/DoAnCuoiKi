@@ -1,0 +1,65 @@
+/* Blog Styles */
+.blog-post {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.blog-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.blog-meta {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.blog-content {
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+/* Comment Styles */
+.comments-section {
+    margin-top: 40px;
+}
+
+.comment {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 15px;
+}
+
+.comment .card-subtitle {
+    font-weight: bold;
+    color: #333;
+}
+
+.comment .card-text {
+    margin-top: 10px;
+    font-size: 1rem;
+}
+
+.comment-actions {
+    margin-top: 10px;
+}
+
+.comment-actions button {
+    margin-right: 5px;
+}
+
+.comment-form textarea {
+    resize: vertical;
+}
+
+.alert-info {
+    background-color: #e7f3fe;
+    color: #31708f;
+    border-color: #bce8f1;
+}

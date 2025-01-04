@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Điều khoản sử dụng | CheckPrice</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <link href="/css/style.css" rel="stylesheet">
+    <script src="/js/auth.js" defer></script>
+    <style>
+        .terms-card {
+            border: none;
+            box-shadow: 0 0 40px rgba(0,0,0,0.08);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .terms-header {
+            background: linear-gradient(135deg, #207bc1 0%, #1a69a7 100%);
+            padding: 2.5rem;
+            color: white;
+            position: relative;
+        }
+
+        .terms-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.1));
+        }
+
+        .terms-header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .terms-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .terms-content {
+            padding: 2.5rem;
+        }
+
+        .terms-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .terms-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .terms-section h2 {
+            color: #207bc1;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .terms-section h2 i {
+            width: 40px;
+            height: 40px;
+            background: #207bc1;
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .terms-section ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .terms-section li {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .terms-section li::before {
+            content: '';
+            position: absolute;
+            left: -1rem;
+            top: 0.7rem;
+            width: 6px;
+            height: 6px;
+            background: #207bc1;
+            border-radius: 50%;
+        }
+
+        .terms-footer {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 16px;
+            margin-top: 3rem;
+        }
+
+        .terms-footer h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #2d3436;
+        }
+
+        .terms-footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .terms-footer li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .terms-footer i {
+            width: 35px;
+            height: 35px;
+            background: #207bc1;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .terms-header {
+                padding: 2rem;
+            }
+
+            .terms-content {
+                padding: 1.5rem;
+            }
+
+            .terms-section {
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .terms-section h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Header -->
+    <div id="header-container"></div>
+
+    <main class="container mt-4">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                <div class="support-sidebar card">
+                    <div class="card-body">
+                        <h4 class="card-title">Trung tâm hỗ trợ</h4>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/huong-dan">
+                                    <i class="fas fa-book-open me-2"></i>Hướng dẫn sử dụng
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/lien-he">
+                                    <i class="fas fa-envelope me-2"></i>Liên hệ
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-item">
+                                    <a class="nav-link" href="/faq">
+                                        <i class="fas fa-question-circle me-2"></i>Câu hỏi thường gặp
+                                    </a>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/bao-mat">
+                                    <i class="fas fa-shield-alt me-2"></i>Chính sách bảo mật
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/dieu-khoan">
+                                    <i class="fas fa-file-contract me-2"></i>Điều khoản sử dụng
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/lien-he-doi-tac">
+                                    <i class="fas fa-briefcase me-2"></i>Liên hệ doanh nghiệp
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-9">
+                <div class="terms-card">
+                    <div class="terms-header">
+                        <h1>Điều khoản sử dụng</h1>
+                        <p>Vui lòng đọc kỹ các điều khoản sau đây trước khi sử dụng dịch vụ của CheckPrice.</p>
+                    </div>
+                    
+                    <div class="terms-content">
+                        <div class="terms-section">
+                            <h2>
+                                <i class="fas fa-user-check"></i>
+                                Điều kiện sử dụng
+                            </h2>
+                            <p>Khi sử dụng CheckPrice, bạn đồng ý:</p>
+                            <ul>
+                                <li>Tuân thủ pháp luật Việt Nam</li>
+                                <li>Không sử dụng dịch vụ cho mục đích bất hợp pháp</li>
+                                <li>Không chia sẻ thông tin đăng nhập với người khác</li>
+                                <li>Chịu trách nhiệm về bảo mật tài khoản</li>
+                            </ul>
+                        </div>
+
+                        <div class="terms-section">
+                            <h2>
+                                <i class="fas fa-database"></i>
+                                Quyền sở hữu dữ liệu
+                            </h2>
+                            <ul>
+                                <li>Dữ liệu được thu thập từ các nguồn công khai</li>
+                                <li>CheckPrice có quyền sử dụng và phân tích dữ liệu</li>
+                                <li>Người dùng không được sao chép dữ liệu trái phép</li>
+                            </ul>
+                        </div>
+
+                        <div class="terms-section">
+                            <h2>
+                                <i class="fas fa-handshake"></i>
+                                Trách nhiệm và cam kết
+                            </h2>
+                            <ul>
+                                <li>Cung cấp thông tin chính xác và cập nhật</li>
+                                <li>Bảo vệ quyền lợi người dùng</li>
+                                <li>Hỗ trợ kịp thời khi có vấn đề</li>
+                            </ul>
+                        </div>
+
+                        <div class="terms-footer">
+                            <h2>Liên hệ</h2>
+                            <ul>
+                                <li>
+                                    <i class="fas fa-envelope"></i>
+                                    <span>Email: terms@checkprice.vn</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-phone"></i>
+                                    <span>Điện thoại: 1900 123 456</span>
+                                </li>
+                            </ul>
+                            <p class="text-muted mt-3">Cập nhật lần cuối: 01/03/2024</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Include Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="js/chatbot.js"></script>
+
+</body>
+</html> 

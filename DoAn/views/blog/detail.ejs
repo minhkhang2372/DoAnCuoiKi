@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= blog.title %></title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <style>
+        /* Định dạng chung cho bài viết blog */
+.blog-post {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.blog-post h1 {
+    color: #2c3e50;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.blog-post .meta {
+    color: #7f8c8d;
+    font-size: 0.9em;
+    margin-bottom: 30px;
+}
+
+.blog-post .content {
+    font-size: 1.1em;
+    color: #34495e;
+}
+
+/* Định dạng phần bình luận */
+.comments-section {
+    margin-top: 40px;
+    border-top: 1px solid #eee;
+    padding-top: 30px;
+}
+
+.comment {
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.comment-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.comment-author {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.comment-date {
+    color: #95a5a6;
+    font-size: 0.9em;
+    margin-left: 10px;
+}
+
+.comment-content {
+    color: #34495e;
+    line-height: 1.5;
+}
+
+/* Form bình luận */
+.comment-form {
+    margin-top: 30px;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    resize: vertical;
+    min-height: 100px;
+}
+
+.comment-form button {
+    background: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.comment-form button:hover {
+    background: #2980b9;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .blog-post {
+        padding: 15px;
+    }
+    
+    .blog-post h1 {
+        font-size: 2em;
+    }
+    
+    .comment {
+        padding: 10px;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Include Header -->
+    <%- include('../../public/components/header.html') %>
+
+    <!-- Thêm đoạn này ngay sau thẻ <body> để lưu thông tin user -->
+    <script>
+        // Lưu thông tin user để sử dụng trong JavaScript
+        const currentUser = JSON.parse('<%- JSON.stringify(locals.user || null) %>');
+        const userId = currentUser ? currentUser.id : null;
+        const userRole = currentUser ? currentUser.role : null;
+        const blogId = parseInt('<%- blog.id %>');
+    </script>
+
+    <!-- Add this right after the <body> tag -->
+    <script>
+        // Check login status when page loads
+        function checkLoginStatus() {
+            const token = localStorage.getItem('token');
+            const username = localStorage.getItem('username');
+            const userLoggedIn = document.getElementById('userLoggedIn');
+            const userNotLoggedIn = document.getElementById('userNotLoggedIn');
+            const welcomeUsername = document.getElementById('welcomeUsername');
+
+            if (token && username) {
+                userLoggedIn.style.display = 'block';
+                userNotLoggedIn.style.display = 'none';
+                welcomeUsername.textContent = `Xin chào ${username}`;
+                
+                // Show comment form if user is logged in
+                const commentForm = document.querySelector('.comment-form');
+                if (commentForm) {
+                    commentForm.innerHTML = `
+                        <form id="commentForm" class="mt-3">
+                            <div class="mb-3">
+                                <textarea class="form-control" 
+                                          id="commentContent" 
+                                          rows="3" 
+                                          placeholder="Viết bình luận của bạn..."
+                                          required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane me-2"></i>Gửi bình luận
+                            </button>
+                        </form>
+                    `;
+                }
+            } else {
+                userLoggedIn.style.display = 'none';
+                userNotLoggedIn.style.display = 'block';
+                
+                // Show login message if user is not logged in
+                const commentForm = document.querySelector('.comment-form');
+                if (commentForm) {
+                    commentForm.innerHTML = `
+                        <div class="alert alert-info">
+                            Vui lòng <a href="/login">đăng nhập</a> để bình luận
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        // Check login status when page loads
+        document.addEventListener('DOMContentLoaded', checkLoginStatus);
+    </script>
+
+    <main class="container mt-4">
+        <article class="blog-post">
+            <!-- Back button -->
+            <div class="mb-4">
+                <a href="/" class="btn btn-back btn-outline-primary">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Quay lại trang chủ</span>
+                </a>
+            </div>
+
+            <!-- Blog header -->
+            <header class="blog-header">
+                <% if (blog.thumbnail_url) { %>
+                    <div class="blog-thumbnail mb-4">
+                        <img src="<%= blog.thumbnail_url %>" 
+                             alt="<%= blog.title %>" 
+                             class="img-fluid rounded shadow-sm"
+                             style="width: 100%; max-height: 400px; object-fit: cover;">
+                    </div>
+                <% } %>
+
+                <h1 class="blog-title"><%= blog.title %></h1>
+                
+                <div class="blog-meta">
+                    <span>
+                        <i class="fas fa-calendar-alt"></i>
+                        <%= new Date(blog.created_at).toLocaleDateString('vi-VN') %>
+                    </span>
+                    <% if (blog.author) { %>
+                        <span>
+                            <i class="fas fa-user"></i>
+                            <%= blog.author %>
+                        </span>
+                    <% } %>
+                </div>
+            </header>
+
+            <!-- Blog content -->
+            <div class="blog-content">
+                <%- blog.content %>
+            </div>
+
+            <!-- Comments section -->
+            <section class="comments-section">
+                <h3>
+                    <i class="fas fa-comments me-2"></i>
+                    Bình luận
+                </h3>
+                
+                <!-- Comment Form -->
+                <div class="comment-form mb-4">
+                    <% if (locals.user) { %>
+                        <form id="commentForm" class="mt-3">
+                            <div class="mb-3">
+                                <textarea class="form-control" 
+                                          id="commentContent" 
+                                          rows="3" 
+                                          placeholder="Viết bình luận của bạn..."
+                                          required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane me-2"></i>
+                                Gửi bình luận
+                            </button>
+                        </form>
+                    <% } else { %>
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Vui lòng <a href="/login" class="alert-link">đăng nhập</a> để bình luận
+                        </div>
+                    <% } %>
+                </div>
+
+                <!-- Comments List -->
+                <div id="commentsList">
+                    <!-- Comments will be loaded here -->
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <!-- Include Footer -->
+    <%- include('../../public/components/footer.html') %>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Logout function
+        function logout() {
+            document.cookie = 'token=; Max-Age=0'; // Clear the token cookie
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+        }
+
+        // Thêm hàm kiểm tra login chung
+        function checkUserLogin() {
+            const token = localStorage.getItem('token');
+            const username = localStorage.getItem('username');
+            console.log('Token:', token);
+            console.log('Username:', username);
+            return token && username;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded, checking login status...');
+            const isLoggedIn = checkUserLogin();
+            console.log('Is logged in:', isLoggedIn);
+            
+            // Log số lượng nút like được tìm thấy
+            const likeButtons = document.querySelectorAll('.like-comment');
+            console.log('Found like buttons:', likeButtons.length);
+
+            const loadComments = async () => {
+                try {
+                    // Debug logs
+                    console.log('Current User:', currentUser);
+                    console.log('User Role:', currentUser?.role);
+                    
+                    const response = await fetch(`/api/blogs/${blogId}/comments`);
+                    const comments = await response.json();
+                    
+                    // Debug log cho comments
+                    console.log('Loaded comments:', comments);
+                    
+                    const commentsList = document.getElementById('commentsList');
+                    commentsList.innerHTML = comments.map(comment => {
+                        // Debug log cho từng comment
+                        console.log('Rendering comment:', comment);
+                        console.log('Comment user_id:', comment.user_id);
+                        console.log('Current user id:', currentUser?.id);
+                        console.log('Should show delete?', currentUser && (currentUser.id === comment.user_id || currentUser.role === 'admin'));
+                        
+                        return `
+                            <div class="comment card mb-3" data-comment-id="${comment.id}">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="card-subtitle">
+                                            <i class="fas fa-user me-2"></i>
+                                            ${comment.username}
+                                        </h6>
+                                        <small class="text-muted">
+                                            <i class="fas fa-clock me-1"></i>
+                                            ${new Date(comment.created_at).toLocaleDateString('vi-VN')}
+                                        </small>
+                                    </div>
+                                    <p class="card-text">${comment.content}</p>
+                                    <div class="comment-actions">
+                                        <button class="like-comment btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-heart ${comment.user_liked ? 'text-danger' : ''}"></i> 
+                                            <span class="likes-count">${comment.likes_count}</span>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-secondary reply-button">
+                                            <i class="fas fa-reply me-1"></i> 
+                                            Trả lời (<span class="replies-count">${comment.replies_count}</span>)
+                                        </button>
+                                        ${(currentUser && (currentUser.id === comment.user_id || currentUser.role === 'admin')) ? `
+                                            <button class="btn btn-sm btn-outline-danger delete-comment">
+                                                <i class="fas fa-trash me-1"></i>
+                                                Xóa
+                                            </button>
+                                        ` : ''}
+                                    </div>
+                                    <div class="replies-container mt-3" style="display: none;">
+                                        <div class="replies-list mb-2"></div>
+                                        <div class="reply-form-container">
+                                            <form class="reply-form">
+                                                <div class="input-group">
+                                                    <textarea class="form-control form-control-sm" 
+                                                            rows="1" 
+                                                            placeholder="Viết phản hồi của bạn..."
+                                                            required></textarea>
+                                                    <button class="btn btn-primary btn-sm" type="submit">
+                                                        <i class="fas fa-paper-plane"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                    
+                    // Add event listeners after comments are loaded
+                    // Delete comment handlers
+                    document.querySelectorAll('.delete-comment').forEach(button => {
+                        button.addEventListener('click', deleteComment);
+                    });
+
+                    // Like button handlers
+                    document.querySelectorAll('.like-comment').forEach(button => {
+                        button.addEventListener('click', async function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            
+                            if (!checkUserLogin()) {
+                                alert('Vui lòng đăng nhập để thực hiện chức năng này');
+                                return;
+                            }
+                            
+                            const commentElement = this.closest('.comment');
+                            const commentId = commentElement.dataset.commentId;
+                            const token = localStorage.getItem('token');
+                            
+                            try {
+                                const response = await fetch(`/api/comments/${commentId}/like`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `Bearer ${token}`
+                                    }
+                                });
+                                
+                                if (response.ok) {
+                                    const data = await response.json();
+                                    const heartIcon = this.querySelector('.fa-heart');
+                                    const likesCountElement = this.querySelector('.likes-count');
+                                    
+                                    likesCountElement.textContent = data.likesCount;
+                                    if (data.liked) {
+                                        heartIcon.classList.add('text-danger');
+                                    } else {
+                                        heartIcon.classList.remove('text-danger');
+                                    }
+                                }
+                            } catch (err) {
+                                console.error('Error toggling like:', err);
+                            }
+                        });
+                    });
+
+                    // Reply button handlers
+                    document.querySelectorAll('.reply-button').forEach(button => {
+                        button.addEventListener('click', async (e) => {
+                            const repliesContainer = e.target.closest('.card-body').querySelector('.replies-container');
+                            const repliesList = repliesContainer.querySelector('.replies-list');
+                            const commentId = e.target.closest('.comment').dataset.commentId;
+                            
+                            if (repliesContainer.style.display === 'none') {
+                                repliesContainer.style.display = 'block';
+                                try {
+                                    const response = await fetch(`/api/comments/${commentId}/replies`);
+                                    const replies = await response.json();
+                                    repliesList.innerHTML = replies.map(reply => `
+                                        <div class="reply card mb-2" data-reply-id="${reply.id}">
+                                            <div class="card-body py-2">
+                                                <div class="d-flex justify-content-between">
+                                                    <h6 class="card-subtitle mb-1 text-muted">
+                                                        <i class="fas fa-user me-1"></i>${reply.username}
+                                                    </h6>
+                                                    <small class="text-muted">
+                                                        ${new Date(reply.created_at).toLocaleDateString('vi-VN')}
+                                                    </small>
+                                                </div>
+                                                <p class="card-text mb-1">${reply.content}</p>
+                                                ${currentUser && (currentUser.id === reply.user_id || currentUser.role === 'admin') ? `
+                                                    <button class="btn btn-sm btn-danger delete-reply">
+                                                        <i class="fas fa-trash me-1"></i>Xóa
+                                                    </button>
+                                                ` : ''}
+                                            </div>
+                                        </div>
+                                    `).join('');
+                                } catch (err) {
+                                    console.error('Error loading replies:', err);
+                                }
+                            } else {
+                                repliesContainer.style.display = 'none';
+                            }
+                        });
+                    });
+
+                    // Reply form handlers
+                    document.querySelectorAll('.reply-form').forEach(form => {
+                        form.addEventListener('submit', async (e) => {
+                            e.preventDefault();
+                            
+                            if (!checkUserLogin()) {
+                                alert('Vui lòng đăng nhập để thực hiện chức năng này');
+                                return;
+                            }
+                            
+                            const commentId = e.target.closest('.comment').dataset.commentId;
+                            const textarea = e.target.querySelector('textarea');
+                            const content = textarea.value.trim();
+                            const token = localStorage.getItem('token');
+                            
+                            if (!content) return;
+                            
+                            try {
+                                const response = await fetch(`/api/comments/${commentId}/replies`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `Bearer ${token}`
+                                    },
+                                    body: JSON.stringify({ content })
+                                });
+                                
+                                if (response.ok) {
+                                    textarea.value = '';
+                                    // Reload replies
+                                    const replyButton = e.target.closest('.card-body').querySelector('.reply-button');
+                                    const repliesCountElement = replyButton.querySelector('.replies-count');
+                                    const currentCount = parseInt(repliesCountElement.textContent);
+                                    repliesCountElement.textContent = currentCount + 1;
+                                    
+                                    // Reload replies list
+                                    replyButton.click();
+                                    replyButton.click();
+                                }
+                            } catch (err) {
+                                console.error('Error posting reply:', err);
+                            }
+                        });
+                    });
+                } catch (err) {
+                    console.error('Error loading comments:', err);
+                }
+            };
+
+            // Handle comment deletion
+            const deleteComment = async (e) => {
+                const commentElement = e.target.closest('.comment');
+                const commentId = commentElement.dataset.commentId;
+                
+                if (confirm('Bạn có chắc muốn xóa bình luận này?')) {
+                    try {
+                        const token = localStorage.getItem('token');
+                        const response = await fetch(`/api/comments/${commentId}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        
+                        if (response.ok) {
+                            // Reload comments after successful deletion
+                            loadComments();
+                        } else if (response.status === 401) {
+                            window.location.href = '/login';
+                        }
+                    } catch (err) {
+                        console.error('Error deleting comment:', err);
+                    }
+                }
+            };
+
+            // Handle comment submission
+            const commentForm = document.getElementById('commentForm');
+            if (commentForm) {
+                commentForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const content = document.getElementById('commentContent').value;
+                    
+                    try {
+                        const token = getToken();
+
+                        if (!token) {
+                            window.location.href = '/login';
+                            return;
+                        }
+
+                        const response = await fetch(`/api/blogs/${blogId}/comments`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify({ content })
+                        });
+
+                        if (response.ok) {
+                            document.getElementById('commentContent').value = '';
+                            loadComments();
+                        } else if (response.status === 401) {
+                            window.location.href = '/login';
+                        }
+                    } catch (err) {
+                        console.error('Error posting comment:', err);
+                    }
+                });
+            }
+
+            // Load comments when page loads
+            loadComments();
+        });
+
+        // Function to get token from cookie or localStorage
+        function getToken() {
+            return localStorage.getItem('token') || document.cookie.split('; ')
+                .find(row => row.startsWith('token='))
+                ?.split('=')[1];
+        }
+    </script>
+</body>
+</html> 

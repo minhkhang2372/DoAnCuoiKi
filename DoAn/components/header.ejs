@@ -1,0 +1,32 @@
+<header class="header-container">
+    <div class="header-wrap container">
+        <h1 class="logo">
+            <a href="/">
+                <img src="/images/logo.png" alt="Logo"> 
+            </a>
+        </h1>
+
+        <div class="header-search">
+            <form id="searchForm" action="/timkiem" method="GET">
+                <input type="text" 
+                       id="searchInput"
+                       name="q"
+                       class="header-search-box"
+                       placeholder="Tìm kiếm sản phẩm..."
+                       required>
+                <button class="search-btn" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+
+        <div class="header-action">
+            <div class="header-action-login">
+                <a href="/login" class="btn-login">
+                    <i class="fas fa-user"></i>
+                    <span>Đăng nhập</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</header> 

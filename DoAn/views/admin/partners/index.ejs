@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partners Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <%- include('../partials/sidebar') %>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Partners</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <a href="/admin/partners/new" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add Partner
+                        </a>
+                    </div>
+                </div>
+
+                <% if (locals.error) { %>
+                    <div class="alert alert-danger"><%= error %></div>
+                <% } %>
+
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Website</th>
+                                <th>Status</th>
+                                <th>Created At</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% partners.forEach(partner => { %>
+                                <tr>
+                                    <td><%= partner.id %></td>
+                                    <td><%= partner.name %></td>
+                                    <td><a href="<%= partner.website %>" target="_blank"><%= partner.website %></a></td>
+                                    <td>
+                                        <span class="badge bg-<%= partner.status ? 'success' : 'danger' %>">
+                                            <%= partner.status ? 'Active' : 'Inactive' %>
+                                        </span>
+                                    </td>
+                                    <td><%= partner.created_at.toLocaleDateString() %></td>
+                                    <td>
+                                        <a href="/admin/partners/<%= partner.id %>/edit" 
+                                           class="btn btn-sm btn-primary">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button class="btn btn-sm btn-danger" 
+                                                onclick="deletePartner('<%= partner.id %>')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function deletePartner(id) {
+            if (confirm('Are you sure you want to delete this partner?')) {
+                fetch(`/admin/partners/${id}`, {
+                    method: 'DELETE'
+                }).then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html> 
